@@ -10,10 +10,12 @@ import (
 	"github.com/warrenb95/carbon-slots/internal/application"
 )
 
+// Server represents the HTTP server for the Carbon Slots application.
 type Server struct {
 	HTTPServer *http.Server
 }
 
+// NewServer creates a new HTTP server with the given address and Carbon API base URL.
 func NewServer(addr string, carbonAPIBaseURL string) *Server {
 	// Outbound adapter
 	carbonAdapter := carbonintensityapi.NewAdapter(carbonAPIBaseURL)
@@ -37,6 +39,7 @@ func NewServer(addr string, carbonAPIBaseURL string) *Server {
 	}
 }
 
+// Start starts the HTTP server and listens for incoming requests.
 func (s *Server) Start() error {
 	log.Printf("Starting server on %s", s.HTTPServer.Addr)
 	return s.HTTPServer.ListenAndServe()

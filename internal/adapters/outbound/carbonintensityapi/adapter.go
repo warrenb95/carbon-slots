@@ -14,11 +14,13 @@ import (
 	"github.com/warrenb95/carbon-slots/internal/ports/outbound"
 )
 
+// Adapter implements the outbound.CarbonIntensityPort interface to fetch carbon intensity data from an external API.
 type Adapter struct {
 	BaseURL string
 	Client  *http.Client
 }
 
+// NewAdapter creates a new Adapter instance with the specified base URL for the carbon intensity API.
 func NewAdapter(baseURL string) *Adapter {
 	return &Adapter{
 		BaseURL: baseURL,
@@ -36,6 +38,7 @@ type apiResponse struct {
 	} `json:"data"`
 }
 
+// GetCarbonIntensity fetches carbon intensity data for the specified time range.
 func (a *Adapter) GetCarbonIntensity(ctx context.Context, from, to time.Time) ([]outbound.CarbonForecastPeriod, error) {
 	url := fmt.Sprintf("%s/intensity/%s/fw24h", a.BaseURL, from.Format("2006-01-02T15:04Z"))
 

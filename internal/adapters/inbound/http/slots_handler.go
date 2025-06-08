@@ -12,11 +12,13 @@ import (
 	"github.com/warrenb95/carbon-slots/internal/ports/inbound"
 )
 
+// SlotsHandler handles HTTP requests for finding carbon slots.
 type SlotsHandler struct {
 	Controller     inbound.SlotController
 	RequestTimeout time.Duration
 }
 
+// NewSlotsHandler creates a new SlotsHandler with the given controller and timeout duration.
 func NewSlotsHandler(controller inbound.SlotController, timeoutDuration time.Duration) *SlotsHandler {
 	return &SlotsHandler{
 		Controller:     controller,
@@ -24,6 +26,7 @@ func NewSlotsHandler(controller inbound.SlotController, timeoutDuration time.Dur
 	}
 }
 
+// ServeHTTP implements the http.Handler interface for SlotsHandler.
 func (h *SlotsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Received request for %s", r.URL.Path)
 
